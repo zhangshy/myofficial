@@ -1,0 +1,12 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<h1>泰信盒子</h1>
+<hr>
+{% for stb in stbs %}
+    <a href="{{ stb.href }}">
+    <img src="{{ stb.img }}" alt="{{ stb.name }}"/>
+    </a>
+    <p>price: {{ stb.price }}</p>
+    <hr>
+{% endfor %}
