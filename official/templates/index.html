@@ -4,10 +4,17 @@
 <h1>泰信盒子</h1>
 <div class="stb_frame">
 {% for stb in stbs %}
-    <div class="stb">
-    <a href="{{ stb.href }}"><img class="stb" src="{{ stb.img }}" alt="{{ stb.name }}" title="泰信融合盒子"/></a>
-    <p>price: {{ stb.price }}</p>
-    </div>
+    <li>
+        <div class="stb-item">
+            <div class="stb-img">
+                <a href="{{ stb.href }}" target="_blank"><img class="stb" src="http://img04.taobaocdn.com/imgextra/i4/701726076/T2a.7aXIdaXXXXXXXX-701726076.gif" style="background-image: url({{ stb.img }})" alt="{{ stb.name }}"/></a>
+            </div>
+            <p>price: {{ stb.price }}</p>
+            <a class="promsg" href="{{ stb.href }}" target="_blank">
+                {{ stb.promsg_title }}
+            </a>
+        </div>
+    </li>
 {% endfor %}
 </div>
 <div class="footer">

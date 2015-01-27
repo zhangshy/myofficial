@@ -4,9 +4,19 @@ h1 {
     text-align: center;
 }
 
+li {
+    list-style: none;
+    float: left;
+}
+
 img.stb {
     width: 480px;
     height: 215px;
+    background-size: 480px 215px;
+}
+
+div.stb-img {
+    display: block;
 }
 
 div.stb_frame {
@@ -15,11 +25,27 @@ div.stb_frame {
     text-align: center;
 }
 
-div.stb {
-    float: left;
+div.stb-item {
+    /*float: left;*/
+    position: relative;
     margin-left: 20px;
-    margin-bottom: 10px;
-    height: 260px;
+    margin-bottom: 20px;
+}
+
+.promsg {
+    display: none;
+    color: #fff;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 480px;
+    height: 215px;
+    background: url(http://img03.taobaocdn.com/imgextra/i3/701726076/T20XQxXBJXXXXXXXXX-701726076.png) repeat 0 0;
+}
+
+.stb-item:hover .promsg {
+    display: block;
 }
 
 div.footer {

@@ -30,18 +30,24 @@ def index():
             'img': 'http://img.tvhome.com/uploads/2014/09/10/19290aff2d718cbed9265f0266b64bc7.jpg',
             'price': 260.0,
             'href': 'http://www.taixin.cn',
+            'promsg_title': 'taixin',
+            'promsg_desc': 'DVB+OTT',
         },
         {
             'name': 'X1',
             'img': 'http://www.taixin.cn/uploadfiles/image/20141226/20141226132514_6076.jpg',
             'price': 399.0,
             'href': "http://www.taixin.cn",
+            'promsg_title': 'taixin',
+            'promsg_desc': 'DVB+OTT',
         },
         {
             'name': 'X2',
             'img': 'http://www.taixin.cn/uploadfiles/image/20141226/20141226132646_0860.jpg',
             'price': 299.0,
             'href': "http://www.taixin.cn",
+            'promsg_title': 'taixin',
+            'promsg_desc': 'DVB+OTT',
         },
     ]
     return render_template('index.html', stbs=stbs)
