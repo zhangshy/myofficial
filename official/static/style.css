@@ -4,6 +4,28 @@ h1 {
     text-align: center;
 }
 
+img.stb {
+    width: 480px;
+    height: 215px;
+}
+
+div.stb_frame {
+    margin-left: 100px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+div.stb {
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    height: 260px;
+}
+
+div.footer {
+    clear: both;/*加上这句，左右两侧都不允许出现浮动元素*/
+}
+
 p {
     color:blue;
 }

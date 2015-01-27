@@ -2,11 +2,14 @@
     <link rel="stylesheet" type="text/css" href="static/style.css">
 </head>
 <h1>泰信盒子</h1>
-<hr>
+<div class="stb_frame">
 {% for stb in stbs %}
-    <a href="{{ stb.href }}">
-    <img src="{{ stb.img }}" alt="{{ stb.name }}"/>
-    </a>
+    <div class="stb">
+    <a href="{{ stb.href }}"><img class="stb" src="{{ stb.img }}" alt="{{ stb.name }}" title="泰信融合盒子"/></a>
     <p>price: {{ stb.price }}</p>
-    <hr>
+    </div>
 {% endfor %}
+</div>
+<div class="footer">
+<img src="http://ww2.sinaimg.cn/bmiddle/87379ae7gw1eohw7xzrfej213l0m9dod.jpg"/>
+</div>

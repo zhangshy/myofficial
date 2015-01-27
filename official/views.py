@@ -26,15 +26,21 @@ admin.add_view(MyView(name='Hello 3', endpoint='test3', category='Test'))
 def index():
     stbs = [
         {
+            'name': 'T2',
+            'img': 'http://img.tvhome.com/uploads/2014/09/10/19290aff2d718cbed9265f0266b64bc7.jpg',
+            'price': 260.0,
+            'href': 'http://www.taixin.cn',
+        },
+        {
             'name': 'X1',
             'img': 'http://www.taixin.cn/uploadfiles/image/20141226/20141226132514_6076.jpg',
-            'price': 399,
+            'price': 399.0,
             'href': "http://www.taixin.cn",
         },
         {
             'name': 'X2',
             'img': 'http://www.taixin.cn/uploadfiles/image/20141226/20141226132646_0860.jpg',
-            'price': 299,
+            'price': 299.0,
             'href': "http://www.taixin.cn",
         },
     ]
