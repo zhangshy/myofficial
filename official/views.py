@@ -54,3 +54,7 @@ def index():
         },
     ]
     return render_template('index.html', stbs=stbs)
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
