@@ -1,5 +1,6 @@
 <head>
     <link rel="stylesheet" type="text/css" href="static/style.css">
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.0/seed-min.js" charset="utf-8"></script>
 </head>
 <h1>泰信盒子</h1>
 <div class="stb_frame">
@@ -10,8 +11,12 @@
                 <a href="{{ stb.href }}" target="_blank"><img class="stb" src="http://img04.taobaocdn.com/imgextra/i4/701726076/T2a.7aXIdaXXXXXXXX-701726076.gif" style="background-image: url({{ stb.img }})" alt="{{ stb.name }}"/></a>
             </div>
             <p>price: {{ stb.price }}</p>
+            <div id="countdown">
+                <div class="cd cd-medium" data-config="{'leftTime':1121685}">剩余时间：${h}时${m}分${s}秒</div>
+            </div>
             <a class="promsg" href="{{ stb.href }}" target="_blank">
-                {{ stb.promsg_title }}
+                <p class="t-desc"><strong>{{ stb.promsg_title }}</strong></p>
+                <p class="t-desc">{{ stb.promsg_desc }}</p>
             </a>
         </div>
     </li>
@@ -20,3 +25,4 @@
 <div class="footer">
 <img src="http://ww2.sinaimg.cn/bmiddle/87379ae7gw1eohw7xzrfej213l0m9dod.jpg"/>
 </div>
+<script src="static/js/main.js" charset="utf-8"></script>

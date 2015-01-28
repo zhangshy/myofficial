@@ -46,6 +46,12 @@ div.stb-item {
 
 .stb-item:hover .promsg {
     display: block;
+    text-decoration:none;/*去除下划线*/
+}
+
+.t-desc {
+    color: #fff;
+    font-size: 14px;
 }
 
 div.footer {

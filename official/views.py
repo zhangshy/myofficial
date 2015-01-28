@@ -32,6 +32,7 @@ def index():
             'href': 'http://www.taixin.cn',
             'promsg_title': 'taixin',
             'promsg_desc': 'DVB+OTT',
+            'left_time': 84840,
         },
         {
             'name': 'X1',
@@ -40,6 +41,7 @@ def index():
             'href': "http://www.taixin.cn",
             'promsg_title': 'taixin',
             'promsg_desc': 'DVB+OTT',
+            'left_time': 74842,
         },
         {
             'name': 'X2',
@@ -48,6 +50,7 @@ def index():
             'href': "http://www.taixin.cn",
             'promsg_title': 'taixin',
             'promsg_desc': 'DVB+OTT',
+            'left_time': 74842,
         },
     ]
     return render_template('index.html', stbs=stbs)
