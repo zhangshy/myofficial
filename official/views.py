@@ -58,3 +58,7 @@ def index():
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+@app.route('/bootstrap/<name>')
+def bootstrap_test1(name):
+    return render_template('bootstrap_'+name+'.html')
