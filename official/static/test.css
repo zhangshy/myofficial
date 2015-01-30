@@ -1,0 +1,30 @@
+hr {
+    height: 5px;
+    border: none;
+    border-top: 5px ridge skyblue;
+}
+div.ex {
+    background-color: #e5eecc;
+    padding: 7px;
+    border: solid 1px #c3c3c3;
+}
+div.panel, p.flip {
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    background: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+div.panel {
+    height: 80px;
+    display: none;
+}
+
+.div_animate {
+    background: #98bf21;
+    height: 100px;
+    width: 200px;
+    position: relative;
+    font-size: 1em;
+    color: blue;
+}
