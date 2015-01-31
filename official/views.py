@@ -1,18 +1,27 @@
 from flask import render_template
 from flask.ext.admin import Admin
-from official import app, db
+from config import db
+from official import app
 from MyView import MyView
 
 class Stb(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), unique=True)
-    img = db.Column(db.String(120), unique=True)
-    price = db.Column(db.Float, unique=True)
+    img = db.Column(db.String(120))
+    price = db.Column(db.Float)
+    href = db.Column(db.String(120))
+    title = db.Column(db.String(40))
+    desc = db.Column(db.String(240))
+    end_time = db.Column(db.Integer)
 
-    def __init__(self, name, img, price):
+    def __init__(self, name, img, price, href, title, desc, end_time):
         self.name = name
         self.img = img
         self.price = price
+        self.href = href
+        self.title = title
+        self.desc = desc
+        self.end_time = end_time
 
     def __repr__(self):
         return '<Stb %r>' % self.name
@@ -24,6 +33,7 @@ admin.add_view(MyView(name='Hello 3', endpoint='test3', category='Test'))
 
 @app.route('/')
 def index():
+    '''
     stbs = [
         {
             'name': 'T2',
@@ -53,6 +63,8 @@ def index():
             'left_time': 74842,
         },
     ]
+    '''
+    stbs = Stb.query.all()
     return render_template('index.html', stbs=stbs)
 
 @app.route('/test')
