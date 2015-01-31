@@ -12,7 +12,7 @@
             </div>
             <p>price: {{ stb.price }}</p>
             <div id="countdown">
-                <div class="cd cd-medium" data-config="{'leftTime':1121685}">剩余时间：${h}时${m}分${s}秒</div>
+                <div class="cd cd-medium" data-config="{'leftTime': {{ stb.leftTime }}}">剩余时间：${h}时${m}分${s}秒</div>
             </div>
             <a class="promsg" href="{{ stb.href }}" target="_blank">
                 <p class="t-desc"><strong>{{ stb.title }}</strong></p>
