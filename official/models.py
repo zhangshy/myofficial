@@ -2,11 +2,26 @@ from config import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode(64))
-    email = db.Column(db.Unicode(64))
+    name = db.Column(db.String(64), unique=True)
+    email = db.Column(db.String(64), unique=True)
+    password = db.Column(db.String(64))
+
+    def __init__(self, name=None, email=None, password=None):
+        self.name = name
+        self.email = email
+        self.password = password
 
     def __unicode__(self):
         return self.name
+
+    def is_authenticated(self):
+        return True
+    def is_active(self):
+        return True
+    def is_anonymous(self):
+        return False
+    def get_id(self):
+        return self.id
 
 
 class Stb(db.Model):
