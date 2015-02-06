@@ -28,7 +28,9 @@
             {% endif %}
             </div>
             {% endfor %}
-            <button class="btn" type="submit">Submit</button>
+            <p id="verificationcode" style="border-style: solid; border-width: 1px; height: 20px; width: 100px; text-align: center"></p>
+            <input type="button" value="免费验证码" onclick="getverificationcode(this)" />
+            <button class="btn" type="submit">提交</button>
         </form>
         {{ link | safe }}
         {% endif %}
@@ -36,4 +38,39 @@
 
     <a class="btn btn-primary" href="/"><i class="icon-arrow-left icon-white"></i> Back</a>
 </div>
+<script type="text/javascript">
+    var countdown=60;
+    function getverificationcode(val) {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                document.getElementById("verificationcode").innerHTML=xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET","/verificationcode",true);
+        xmlhttp.send()
+        settime(val)
+    }
+    //点击按键后60s倒计时
+    function settime(val) {
+        if (countdown == 0) {
+            val.removeAttribute("disabled");
+            val.value="免费获取验证码";
+            countdown = 60;
+        } else {
+            val.setAttribute("disabled", true);
+            val.value="重新发送(" + countdown + ")";
+            countdown--;
+            setTimeout(function() {
+            settime(val)
+            },1000)
+        }
+    }
+</script>
 {% endblock body %}

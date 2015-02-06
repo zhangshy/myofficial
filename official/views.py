@@ -1,4 +1,5 @@
 from datetime import datetime
+import random
 
 from flask import render_template
 from flask.ext.admin import Admin
@@ -26,6 +27,13 @@ def index():
         stb.leftTime = tmp.total_seconds()
         print("leftTime: %d" % (stb.leftTime))
     return render_template('index.html', stbs=stbs)
+
+@app.route('/verificationcode')
+def verification_code():
+    str = ""
+    for i in range(5):
+        str += random.choice('0123456789abcdefghijklmnopqrstuvwxyz')
+    return str
 
 @app.route('/test')
 def test():
