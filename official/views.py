@@ -3,11 +3,11 @@ import random
 
 from flask import render_template
 from flask.ext.admin import Admin
-from config import db
+
+from official import db, login_manager
+from config import app
 from models import Stb, User
-from forms import LoginForm
 from MyView import MyAdminIndexView, MyModelView
-from official import app, login_manager
 
 
 #admin = Admin(app, index_view=MyAdminIndexView())
@@ -24,7 +24,8 @@ def index():
     stbs = Stb.query.all()
     for stb in stbs:
         tmp = stb.end_time - datetime.utcnow()
-        stb.leftTime = tmp.total_seconds()
+#        stb.leftTime = tmp.total_seconds()
+        stb.leftTime = tmp.days*86400 + tmp.seconds
         print("leftTime: %d" % (stb.leftTime))
     return render_template('index.html', stbs=stbs)
 

@@ -1,8 +1,10 @@
 #coding: utf-8
 from flask.ext.wtf import Form
 from wtforms import StringField, PasswordField, validators
-from config import db
+
+from official import db
 from models import User
+
 
 class LoginForm(Form):
     name = StringField(u'用户名', validators=[validators.DataRequired()])
