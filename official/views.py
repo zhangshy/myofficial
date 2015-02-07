@@ -1,7 +1,7 @@
 from datetime import datetime
 import random
 
-from flask import render_template
+from flask import render_template, url_for, redirect
 from flask.ext.admin import Admin
 
 from official import db, login_manager
@@ -21,13 +21,17 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
+    return redirect(url_for('stb'))
+
+@app.route('/stb')
+def stb():
     stbs = Stb.query.all()
     for stb in stbs:
         tmp = stb.end_time - datetime.utcnow()
 #        stb.leftTime = tmp.total_seconds()
         stb.leftTime = tmp.days*86400 + tmp.seconds
         print("leftTime: %d" % (stb.leftTime))
-    return render_template('index.html', stbs=stbs)
+    return render_template('stb.html', stbs=stbs)
 
 @app.route('/verificationcode')
 def verification_code():
