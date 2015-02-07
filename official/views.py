@@ -6,13 +6,15 @@ from flask.ext.admin import Admin
 
 from official import db, login_manager
 from config import app
-from models import Stb, User
+from models import Stb, User, Role
 from MyView import MyAdminIndexView, MyModelView
 
 
 #admin = Admin(app, index_view=MyAdminIndexView())
 #admin.add_view(ModelView(Stb, db.session))
 admin = Admin(app, 'mySite', index_view=MyAdminIndexView(), base_template='my_master.html')
+admin.add_view(MyModelView(User, db.session))
+admin.add_view(MyModelView(Role, db.session))
 admin.add_view(MyModelView(Stb, db.session))
 
 @login_manager.user_loader
@@ -47,3 +49,4 @@ def test():
 @app.route('/bootstrap/<name>')
 def bootstrap_test1(name):
     return render_template('bootstrap_'+name+'.html')
+

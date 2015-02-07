@@ -4,13 +4,21 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(64), unique=True)
-    password = db.Column(db.String(64))
+    password = db.Column(db.String(128))
+    role_id = db.Column(db.String(32))
+    role = db.relationship('Role', backref='user', lazy='dynamic')
 
+    def init(self, name, email, role_id, password):
+        self.name = name
+        self.email = email
+        self.role_id = role_id
+        self.password = password
+    '''
     def __init__(self, name=None, email=None, password=None):
         self.name = name
         self.email = email
         self.password = password
-
+    '''
     def __unicode__(self):
         return self.name
 
@@ -33,7 +41,7 @@ class Stb(db.Model):
     title = db.Column(db.String(40))
     desc = db.Column(db.String(240))
     end_time = db.Column(db.DateTime)
-
+    '''
     def __init__(self, name=None, img=None, price=None, href=None, title=None, desc=None, end_time=None):
         self.name = name
         self.img = img
@@ -42,6 +50,13 @@ class Stb(db.Model):
         self.title = title
         self.desc = desc
         self.end_time = end_time
-
+    '''
     def __repr__(self):
         return '<Stb %r>' % self.name
+
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    permission = db.Column(db.String(16))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    def __repr__(self):
+        return self.permission

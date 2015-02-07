@@ -2,3 +2,6 @@
 python config.py db init
 python config.py db migrate -m 'init migration'
 python config.py db upgrade
+2. 以后修改数据库后可执行
+python config.py db migrate
+python config.py db upgrade
