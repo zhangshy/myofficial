@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block body %}
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#">首页</a></li>
+        <li role="presentation"><a href="#">Profile</a></li>
+        <li role="presentation"><a href="#">Messages</a></li>
+    </ul>
+
+    <div class="row">
+        <div class="col-md-8">
+            <!-- style="width: 440px; width: 70%; margin: 0 auto" 可以设置carousel的尺寸 -->
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height: 400px">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {% for image in body.images %}
+                        {% if loop.first %}
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        {% else %}
+                            <li data-target="#carousel-example-generic" data-slide-to={{ loop.index0 }}></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                {% for image in body.images %}
+                    {% if loop.first %}
+                        <div class="item active">
+                    {% else %}
+                        <div class="item">
+                    {% endif %}
+                      <img src={{ image.src }} alt={{ image.alt }} style="margin: 0 auto; height: 400px">
+                      <div class="carousel-caption">
+                          <h3>{{ image.title }}</h3>
+                          <p>{{ image.desc }}</p>
+                      </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div> <!-- /.carousel -->
+
+        <div class="col-md-4">
+            <div>
+                <p class="lead text-success">{{ body.weibo.alt }}</p>
+                <a href={{ body.weibo.href }}  target="_black"><img src={{ body.weibo.avatar }} alt={{ body.weibo.alt }} class="img-circle"></a>
+            </div>
+            <div>
+                <p class="lead text-success">{{ body.zhibo.alt }}</p>
+                <a href={{ body.zhibo.href }}  target="_black"><img src={{ body.zhibo.avatar }} alt={{ body.zhibo.alt }}></a>
+            </div>
+        </div>
+    </div> <!-- /.div row -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

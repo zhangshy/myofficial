@@ -1,4 +1,6 @@
-from official import db
+from official import app, db
+from flask.ext.login import current_user
+from flask.ext.principal import identity_loaded, RoleNeed, UserNeed, Permission
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,3 +62,16 @@ class Role(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     def __repr__(self):
         return self.permission
+
+@identity_loaded.connect_via(app)
+def on_identity_loaded(sender, identity):
+    identity.user = current_user
+
+    if hasattr(current_user, 'id'):
+        identity.provides.add(UserNeed(current_user.id))
+
+    if hasattr(current_user, 'role'):
+#        roles = Role.query.all()
+        roles = Role.query.filter_by(user_id=current_user.get_id())
+        for role in roles:
+            identity.provides.add(RoleNeed(role.permission))

@@ -4,7 +4,8 @@ from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm
-from flask.ext.principal import Identity, AnonymousIdentity, identity_changed
+from flask.ext.principal import Identity, AnonymousIdentity, identity_changed, Permission, RoleNeed
+from official import USER_ALL, ROLE_ALL
 
 class MyAdminIndexView(AdminIndexView):
     @expose('/')
@@ -43,3 +44,9 @@ class MyAdminIndexView(AdminIndexView):
 class MyModelView(ModelView):
     def is_accessible(self):
         return login.current_user.is_authenticated()
+class UserModelView(ModelView):
+    def is_accessible(self):
+        return Permission(RoleNeed(USER_ALL)).can()
+class RoleModelView(ModelView):
+    def is_accessible(self):
+        return Permission(RoleNeed(ROLE_ALL)).can()
