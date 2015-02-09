@@ -31,22 +31,14 @@
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     {% for image in body.images %}
-                        {% if loop.first %}
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        {% else %}
-                            <li data-target="#carousel-example-generic" data-slide-to={{ loop.index0 }}></li>
-                        {% endif %}
+                        <li data-target="#carousel-example-generic" data-slide-to={{ loop.index0 }} {% if loop.first %}class="active"{% endif %}></li>
                     {% endfor %}
                 </ol>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
                 {% for image in body.images %}
-                    {% if loop.first %}
-                        <div class="item active">
-                    {% else %}
-                        <div class="item">
-                    {% endif %}
+                      <div class="item {% if loop.first %}active{% endif %}">
                       <img src={{ image.src }} alt={{ image.alt }} style="margin: 0 auto; height: 400px">
                       <div class="carousel-caption">
                           <h3>{{ image.title }}</h3>
@@ -65,8 +57,8 @@
                     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
-            </div>
-        </div> <!-- /.carousel -->
+            </div> <!-- /.carousel -->
+        </div> <!-- /.col-md-8 -->
 
         <div class="col-md-4">
             <div>
