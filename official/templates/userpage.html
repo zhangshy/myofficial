@@ -15,6 +15,8 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="/static/js/my_main.js" charset="utf-8"></script>
 </head>
 <body>
 
@@ -23,7 +25,7 @@
         <li role="presentation"><a href="#">Profile</a></li>
         <li role="presentation"><a href="#">Messages</a></li>
     </ul>
-
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-8">
             <!-- style="width: 440px; width: 70%; margin: 0 auto" 可以设置carousel的尺寸 -->
@@ -71,6 +73,19 @@
             </div>
         </div>
     </div> <!-- /.div row -->
+
+    <div class="row">
+            {% for image in body.cImages %}
+                <div class="col-xs-6 col-md-4" style="margin-top: 20px; text-align: center">
+                    <img src="{{ image.src }}" style="margin: 0 auto; height: 600px" ><br>
+                    <a href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red; font-size: 200%"></span></a>
+                </div>
+            {% endfor %}
+    </div>
+</div>
+    <div id="SOHUCS"></div>
+    <script>changyan()</script>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>

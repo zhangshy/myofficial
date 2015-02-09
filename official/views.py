@@ -24,7 +24,7 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
-    return redirect(url_for('stb'))
+    return redirect(url_for('user_page', name='yaya'))
 
 @app.route('/stb')
 def stb():
@@ -68,7 +68,12 @@ def user_page(name):
                 'avatar': 'http://www.huomaotv.com/uc_server/avatar.php?uid=100&size=small',
                 'href': 'http://www.huomaotv.com/live/15',
                 'alt': u'雅少火猫直播'
-            }
+            },
+            'cImages':[
+                {'src':'http://ww4.sinaimg.cn/bmiddle/62e2b033gw1eoh3k0pd44j20qs0zq7av.jpg'},
+                {'src':'http://ww1.sinaimg.cn/bmiddle/62e2b033jw1eojjmxcspfj20qo0zkahn.jpg'},
+                {'src':'http://ww4.sinaimg.cn/bmiddle/005vDrjogw1eokru36yixj30dc0k0aan.jpg'},
+            ],
         }
     return render_template('userpage.html', body=body, title=u'雅少萌萌哒')
 
