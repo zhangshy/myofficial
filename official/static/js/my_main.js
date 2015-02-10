@@ -10,3 +10,21 @@ function changyan(){
     h.insertBefore(s,h.firstChild);
     window.SCS_NO_IFRAME = true;
   }
+
+function vote_img(image_id) {
+    var xmlhttp;
+    var txt,x,i;
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function() {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+          document.getElementById("vote_image_"+image_id).innerHTML =xmlhttp.responseText;
+        }
+      }
+    xmlhttp.open("GET","/vote/img?id="+image_id,true);
+    xmlhttp.send();
+}

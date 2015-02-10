@@ -27,7 +27,7 @@
     </ul>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-xs-12 col-md-8">
             <!-- style="width: 440px; width: 70%; margin: 0 auto" 可以设置carousel的尺寸 -->
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height: 400px">
                 <!-- Indicators -->
@@ -62,7 +62,7 @@
             </div> <!-- /.carousel -->
         </div> <!-- /.col-md-8 -->
 
-        <div class="col-md-4">
+        <div class="col-xs-6 col-md-4">
             <div>
                 <p class="lead text-success">{{ body.weibo.alt }}</p>
                 <a href={{ body.weibo.href }}  target="_black"><img src={{ body.weibo.avatar }} alt={{ body.weibo.alt }} class="img-circle"></a>
@@ -75,10 +75,10 @@
     </div> <!-- /.div row -->
 
     <div class="row">
-            {% for image in body.cImages %}
-                <div class="col-xs-6 col-md-4" style="margin-top: 20px; text-align: center">
+            {% for image in body.vImages %}
+                <div class="col-xs-8 col-md-4" style="margin-top: 20px; text-align: center">
                     <img src="{{ image.src }}" style="margin: 0 auto; height: 600px" ><br>
-                    <a href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red; font-size: 200%"></span></a>
+                    <p id="vote_image_{{ image.id }}">{{ image.votes }}</p><a href="javascript:vote_img({{ image.id }})"><span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red; font-size: 200%"></span></a>
                 </div>
             {% endfor %}
     </div>

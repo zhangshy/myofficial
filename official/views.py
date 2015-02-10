@@ -2,7 +2,7 @@
 from datetime import datetime
 import random
 
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, request
 from flask.ext.admin import Admin
 
 from official import db, login_manager
@@ -62,18 +62,25 @@ def user_page(name):
             'weibo':{
                 'avatar': 'http://tp4.sinaimg.cn/1659023411/180/40058975018/0',
                 'href': 'http://weibo.com/910317000',
-                'alt': u'雅少新浪微博'
+                'alt': u'NewBeeTV_雅雅的新浪微博'
             },
             'zhibo':{
                 'avatar': 'http://www.huomaotv.com/uc_server/avatar.php?uid=100&size=small',
                 'href': 'http://www.huomaotv.com/live/15',
-                'alt': u'雅少火猫直播'
+                'alt': u'雅少的火猫直播'
             },
-            'cImages':[
-                {'src':'http://ww4.sinaimg.cn/bmiddle/62e2b033gw1eoh3k0pd44j20qs0zq7av.jpg'},
-                {'src':'http://ww1.sinaimg.cn/bmiddle/62e2b033jw1eojjmxcspfj20qo0zkahn.jpg'},
-                {'src':'http://ww4.sinaimg.cn/bmiddle/005vDrjogw1eokru36yixj30dc0k0aan.jpg'},
+            'vImages':[
+                {'src':'http://ww4.sinaimg.cn/bmiddle/62e2b033gw1eoh3k0pd44j20qs0zq7av.jpg', 'votes':0, 'id':0},
+                {'src':'http://ww1.sinaimg.cn/bmiddle/62e2b033jw1eojjmxcspfj20qo0zkahn.jpg', 'votes':0, 'id':1},
+                {'src':'http://ww4.sinaimg.cn/bmiddle/005vDrjogw1eokru36yixj30dc0k0aan.jpg', 'votes':0, 'id':2},
             ],
         }
-    return render_template('userpage.html', body=body, title=u'雅少萌萌哒')
+    return render_template('userpage.html', body=body, title=u'NewBeeTV_雅雅')
 
+@app.route('/vote/img', methods=['POST', 'GET'])
+def vote_image():
+    if request.method == 'GET':
+        id = request.args.get('id', -1)
+        print("in vote_image GET "+id)
+        #return datetime.utcnow().strftime('%Y%m%d%H%M%S')
+        return datetime.utcnow().strftime('%M%S')
