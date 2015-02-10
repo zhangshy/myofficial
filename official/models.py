@@ -1,3 +1,4 @@
+#coding:utf-8
 from official import app, db
 from flask.ext.login import current_user
 from flask.ext.principal import identity_loaded, RoleNeed, UserNeed, Permission
@@ -9,6 +10,9 @@ class User(db.Model):
     password = db.Column(db.String(128))
     role_id = db.Column(db.String(32))
     role = db.relationship('Role', backref='user', lazy='dynamic')
+    image_vote = db.relationship('ImageVote', backref='user', lazy='dynamic')
+    image_carousel = db.relationship('ImageCarousel', backref='user', lazy='dynamic')
+    user_refer_page = db.relationship('UserReferPage', backref='user', lazy='dynamic')
 
     def init(self, name, email, role_id, password):
         self.name = name
@@ -62,6 +66,37 @@ class Role(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     def __repr__(self):
         return self.permission
+
+'''
+用于投票的image
+'''
+class ImageVote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    src = db.Column(db.String(128))
+    votes = db.Column(db.Integer, default=0)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+'''
+用于轮播的image
+'''
+class ImageCarousel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    src = db.Column(db.String(128))
+    alt = db.Column(db.String(128))
+    title = db.Column(db.String(128))
+    desc = db.Column(db.String(256))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+'''
+用户的外部网站的链接
+'''
+class UserReferPage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    avatar = db.Column(db.String(128))
+    href = db.Column(db.String(128))
+    alt = db.Column(db.String(256))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):

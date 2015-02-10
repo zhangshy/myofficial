@@ -2,7 +2,7 @@
 
 import os
 from official import app, manager
-from official.models import User, Stb, Role
+from official.models import User, Stb, Role, ImageCarousel, ImageVote, UserReferPage
 
 app.config['SECRET_KEY'] = 'test_site'  ##不加这句时使用flask-admin的网页删除功能时出错出错
 #basedir = os.path.abspath(os.path.dirname(__file__))

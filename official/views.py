@@ -7,8 +7,9 @@ from flask.ext.admin import Admin
 
 from official import db, login_manager
 from config import app
-from models import Stb, User, Role
+from models import Stb, User, Role, ImageVote, ImageCarousel, UserReferPage
 from MyView import MyAdminIndexView, MyModelView, UserModelView, RoleModelView
+from getData import getDataFromDB
 
 
 #admin = Admin(app, index_view=MyAdminIndexView())
@@ -16,6 +17,9 @@ from MyView import MyAdminIndexView, MyModelView, UserModelView, RoleModelView
 admin = Admin(app, 'mySite', index_view=MyAdminIndexView(), base_template='my_master.html')
 admin.add_view(UserModelView(User, db.session))
 admin.add_view(RoleModelView(Role, db.session))
+admin.add_view(RoleModelView(ImageVote, db.session))
+admin.add_view(RoleModelView(ImageCarousel, db.session))
+admin.add_view(RoleModelView(UserReferPage, db.session))
 admin.add_view(MyModelView(Stb, db.session))
 
 @login_manager.user_loader
@@ -53,6 +57,7 @@ def bootstrap_test1(name):
 
 @app.route('/page/<name>')
 def user_page(name):
+    '''
     body = {
             'images':[
                 {'src':'http://ww4.sinaimg.cn/bmiddle/62e2b033jw1ep0vete9q5j20xc18gwlh.jpg', 'alt':u'雅少', 'title':u'雅少', 'desc':u'美美哒'},
@@ -75,12 +80,17 @@ def user_page(name):
                 {'src':'http://ww4.sinaimg.cn/bmiddle/005vDrjogw1eokru36yixj30dc0k0aan.jpg', 'votes':0, 'id':2},
             ],
         }
+    '''
+    body = getDataFromDB(app, db, name)
     return render_template('userpage.html', body=body, title=u'NewBeeTV_雅雅')
 
 @app.route('/vote/img', methods=['POST', 'GET'])
 def vote_image():
     if request.method == 'GET':
         id = request.args.get('id', -1)
-        print("in vote_image GET "+id)
+        votes = ImageVote.query.filter_by(id=id).first().votes
+        votes+=1
+        ImageVote.query.filter_by(id=id).first().votes = votes
+        db.session.commit()
         #return datetime.utcnow().strftime('%Y%m%d%H%M%S')
-        return datetime.utcnow().strftime('%M%S')
+        return str(votes)
