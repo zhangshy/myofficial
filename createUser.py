@@ -1,12 +1,13 @@
 '''
 crate test database
 '''
-import os
-from werkzeug.security import generate_password_hash
 import getpass
-from official import db
-from official.views import User
-from config import app
+
+from flask.ext.sqlalchemy import SQLAlchemy
+from official import app
+from werkzeug.security import generate_password_hash
+from official.models import User
+
 
 def create_user():
     name = raw_input('user name:')
@@ -17,6 +18,7 @@ def create_user():
     if password!=tmp:
         print('password not equal')
         return
+    db = SQLAlchemy(app)
     user = User()
     user.init(name, email, role_id, generate_password_hash(password))
     db.session.add(user)

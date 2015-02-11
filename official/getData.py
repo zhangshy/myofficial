@@ -1,6 +1,6 @@
 from models import User, UserReferPage, ImageCarousel, ImageVote
 
-def getDataFromDB(app, db, username):
+def getDataFromDB(username):
     user_id = User.query.filter_by(name=username).first().id
     print('in getDataFromDB:%d' % user_id)
     images = []

@@ -1,10 +1,14 @@
 #coding:utf-8
 from flask import Flask
 from flask.ext.login import LoginManager
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.principal import Principal
+
+from config import SECRET_KEY, SQLALCHEMY_DATABASE_URI
+from models import db
+from userView import user_view
+
 
 USER_ALL = 'user_all'
 ROLE_ALL = 'role_all'
@@ -14,15 +18,20 @@ EDIT_ALL_PAGE = 'edit_all_page'
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+db.init_app(app)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 Principal(app)
 
-db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 
-import official.views
+app.register_blueprint(user_view)
+
+import official.myAdmin

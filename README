@@ -1,7 +1,7 @@
 1. 第一次使用时数据库初始化
-python config.py db init
-python config.py db migrate -m 'init migration'
-python config.py db upgrade
+python2 dbHandler.py db init
+python2 dbHandler.py db migrate -m 'init migration'
+python2 dbHandler.py db upgrade
 2. 以后修改数据库后可执行
-python config.py db migrate
-python config.py db upgrade
+python2 dbHandler.py db migrate
+python2 dbHandler.py db upgrade

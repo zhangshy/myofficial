@@ -2,35 +2,18 @@
 from datetime import datetime
 import random
 
-from flask import render_template, url_for, redirect, request
-from flask.ext.admin import Admin
+from flask import render_template, url_for, redirect, request, Blueprint
 
-from official import db, login_manager
-from config import app
-from models import Stb, User, Role, ImageVote, ImageCarousel, UserReferPage
-from MyView import MyAdminIndexView, MyModelView, UserModelView, RoleModelView
+from official.models import Stb, User, Role, ImageVote, ImageCarousel, UserReferPage, db
 from getData import getDataFromDB
 
+user_view = Blueprint("user_view", __name__, template_folder="templates", static_folder="static")
 
-#admin = Admin(app, index_view=MyAdminIndexView())
-#admin.add_view(ModelView(Stb, db.session))
-admin = Admin(app, 'mySite', index_view=MyAdminIndexView(), base_template='my_master.html')
-admin.add_view(UserModelView(User, db.session))
-admin.add_view(RoleModelView(Role, db.session))
-admin.add_view(RoleModelView(ImageVote, db.session))
-admin.add_view(RoleModelView(ImageCarousel, db.session))
-admin.add_view(RoleModelView(UserReferPage, db.session))
-admin.add_view(MyModelView(Stb, db.session))
-
-@login_manager.user_loader
-def load_user(user_id):
-    return db.session.query(User).get(user_id)
-
-@app.route('/')
+@user_view.route('/')
 def index():
-    return redirect(url_for('user_page', name='yaya'))
+    return redirect(url_for('.user_page', name='yaya'))
 
-@app.route('/stb')
+@user_view.route('/stb')
 def stb():
     stbs = Stb.query.all()
     for stb in stbs:
@@ -40,22 +23,22 @@ def stb():
         print("leftTime: %d" % (stb.leftTime))
     return render_template('stb.html', stbs=stbs)
 
-@app.route('/verificationcode')
+@user_view.route('/verificationcode')
 def verification_code():
     str = ""
     for i in range(5):
         str += random.choice('0123456789abcdefghijklmnopqrstuvwxyz')
     return str
 
-@app.route('/test')
+@user_view.route('/test')
 def test():
     return render_template('test.html')
 
-@app.route('/bootstrap/<name>')
+@user_view.route('/bootstrap/<name>')
 def bootstrap_test1(name):
     return render_template('bootstrap_'+name+'.html')
 
-@app.route('/page/<name>')
+@user_view.route('/page/<name>')
 def user_page(name):
     '''
     body = {
@@ -81,10 +64,10 @@ def user_page(name):
             ],
         }
     '''
-    body = getDataFromDB(app, db, name)
+    body = getDataFromDB(name)
     return render_template('userpage.html', body=body, title=u'NewBeeTV_雅雅')
 
-@app.route('/vote/img', methods=['POST', 'GET'])
+@user_view.route('/vote/img', methods=['POST', 'GET'])
 def vote_image():
     if request.method == 'GET':
         id = request.args.get('id', -1)
