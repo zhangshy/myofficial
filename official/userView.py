@@ -3,8 +3,8 @@ from datetime import datetime
 import random
 
 from flask import render_template, url_for, redirect, request, Blueprint
-
-from official.models import Stb, User, Role, ImageVote, ImageCarousel, UserReferPage, db
+import mistune
+from official.models import db, Stb, User, Role, ImageVote, ImageCarousel, UserReferPage, Post
 from getData import getDataFromDB
 
 user_view = Blueprint("user_view", __name__, template_folder="templates", static_folder="static")
@@ -32,7 +32,8 @@ def verification_code():
 
 @user_view.route('/test')
 def test():
-    return render_template('test.html')
+    #return render_template('test.html')
+    return render_template('post_page.html', body=mistune.markdown(Post.query.all()[0].body), title=u'post')
 
 @user_view.route('/bootstrap/<name>')
 def bootstrap_test1(name):
@@ -77,3 +78,8 @@ def vote_image():
         db.session.commit()
         #return datetime.utcnow().strftime('%Y%m%d%H%M%S')
         return str(votes)
+
+@user_view.route('/posts/<id>')
+def post_of_id(id):
+    post = Post.query.filter_by(id=id).first()
+    return render_template('post_page.html', body=mistune.markdown(post.body), title=post.title)

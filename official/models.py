@@ -96,4 +96,13 @@ class UserReferPage(db.Model):
     alt = db.Column(db.String(256))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+'''
+发布文章
+'''
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(64))
+    summary = db.Column(db.String(256))
+    body = db.Column(db.Text)
+
 
