@@ -4,8 +4,7 @@ import random
 
 from flask import render_template, url_for, redirect, request, Blueprint
 import mistune
-from official.models import db, Stb, User, Role, ImageVote, ImageCarousel, UserReferPage, Post
-from getData import getDataFromDB
+from official.models import db, Stb, ImageVote, Post, PeopleShow
 
 user_view = Blueprint("user_view", __name__, template_folder="templates", static_folder="static")
 
@@ -65,8 +64,13 @@ def user_page(name):
             ],
         }
     '''
-    body = getDataFromDB(name)
-    return render_template('userpage.html', body=body, title=u'NewBeeTV_雅雅')
+    print('user_page:' + name)
+    people = PeopleShow.query.filter_by(name=name).first()
+    if people==None:
+        print('people is none')
+        return "not exist"
+    lImages = people.images.split(';')
+    return render_template('userpage.html', people=people, lImages=lImages, title=people.title)
 
 @user_view.route('/vote/img', methods=['POST', 'GET'])
 def vote_image():

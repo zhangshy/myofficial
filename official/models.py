@@ -2,6 +2,9 @@
 from flask.ext.sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+'''
+用户表
+'''
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
@@ -9,9 +12,6 @@ class User(db.Model):
     password = db.Column(db.String(128))
     role_id = db.Column(db.String(32))
     role = db.relationship('Role', backref='user', lazy='dynamic')
-    image_vote = db.relationship('ImageVote', backref='user', lazy='dynamic')
-    image_carousel = db.relationship('ImageCarousel', backref='user', lazy='dynamic')
-    user_refer_page = db.relationship('UserReferPage', backref='user', lazy='dynamic')
 
     def init(self, name, email, role_id, password):
         self.name = name
@@ -36,7 +36,9 @@ class User(db.Model):
     def get_id(self):
         return self.id
 
-
+'''
+测试表
+'''
 class Stb(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), unique=True)
@@ -59,6 +61,9 @@ class Stb(db.Model):
     def __repr__(self):
         return '<Stb %r>' % self.name
 
+'''
+权限表
+'''
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     permission = db.Column(db.String(16))
@@ -67,34 +72,45 @@ class Role(db.Model):
         return self.permission
 
 '''
-用于投票的image
+展示用户
+'''
+class PeopleShow(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(16))
+    title = db.Column(db.String(64))
+    desc = db.Column(db.String(256))
+    weibo_avatar = db.Column(db.String(128))
+    weibo_href = db.Column(db.String(128))
+    weibo_desc = db.Column(db.String(64))
+    live_avatar = db.Column(db.String(128))
+    live_href = db.Column(db.String(128))
+    live_alt = db.Column(db.String(64))
+    live_src = db.Column(db.String(64))
+    images = db.Column(db.String(512))
+    image_vote = db.relationship('ImageVote', backref='people_show', lazy='dynamic')
+
+'''
+投票活动
+'''
+class VoteEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(64))
+    description = db.Column(db.String(256))
+    start_time = db.Column(db.DateTime)
+    end_time = db.Column(db.DateTime)
+    result = db.Column(db.String(128))
+    image_vote = db.relationship('ImageVote', backref='vote_event', lazy='dynamic')
+
+'''
+可用于投票的image
 '''
 class ImageVote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     src = db.Column(db.String(128))
+    description = db.Column(db.String(128))
     votes = db.Column(db.Integer, default=0)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-'''
-用于轮播的image
-'''
-class ImageCarousel(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    src = db.Column(db.String(128))
-    alt = db.Column(db.String(128))
-    title = db.Column(db.String(128))
-    desc = db.Column(db.String(256))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-'''
-用户的外部网站的链接
-'''
-class UserReferPage(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    avatar = db.Column(db.String(128))
-    href = db.Column(db.String(128))
-    alt = db.Column(db.String(256))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('vote_event.id'))
+    people_id = db.Column(db.Integer, db.ForeignKey('people_show.id'))
 
 '''
 发布文章
@@ -103,6 +119,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
     summary = db.Column(db.String(256))
+    images = db.Column(db.String(512))
     body = db.Column(db.Text)
 
 
