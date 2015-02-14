@@ -88,6 +88,9 @@ class PeopleShow(db.Model):
     live_src = db.Column(db.String(64))
     images = db.Column(db.String(512))
     image_vote = db.relationship('ImageVote', backref='people_show', lazy='dynamic')
+    weibo = db.relationship('Weibo', backref='people_show', lazy='dynamic')
+    def __repr__(self):
+        return self.name
 
 '''
 投票活动
@@ -117,9 +120,22 @@ class ImageVote(db.Model):
 '''
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    sticky = db.Column(db.Boolean, default=False)
     title = db.Column(db.String(64))
     summary = db.Column(db.String(256))
     images = db.Column(db.String(512))
+    youku_vid = db.Column(db.String(20))
+    href = db.Column(db.String(128))
     body = db.Column(db.Text)
+
+'''
+微博链接
+'''
+class Weibo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(300))
+    images = db.Column(db.String(512))
+    href = db.Column(db.String(128))
+    people_id = db.Column(db.Integer, db.ForeignKey('people_show.id'))
 
 
