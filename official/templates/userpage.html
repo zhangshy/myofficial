@@ -1,23 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap -->
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script src="/static/js/my_main.js" charset="utf-8"></script>
-</head>
 <body>
 
     <ul class="nav nav-pills">
@@ -62,8 +44,7 @@
             <div>
                 {% if sticky_post %}
                     <a href="/post/{{ sticky_post.id }}" target="_blank"><h1>{{ sticky_post.title }}</h1></a>
-                    <p>{{ sticky_post.summary }}</p>
-                    <p class="text-right"><a href="/post/{{ sticky_post.id }}#comment">评论(<span id="sourceId::postpage_{{ sticky_post.id }}" class="cy_cmt_count"></span>)</a></p>
+                    <p>{{ sticky_post.summary }}<a href="/post/{{ sticky_post.id }}#comment">评论(<span id="sourceId::postpage_{{ sticky_post.id }}" class="cy_cmt_count"></span>)</a></p>
                     {% if sticky_post.youku_vid %}
                         <div id="youkuplayer" style="width:480px;height:400px"></div>
                         <script type="text/javascript" src="http://player.youku.com/jsapi">
