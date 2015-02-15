@@ -4,7 +4,7 @@ import random
 
 from flask import render_template, url_for, redirect, request, Blueprint
 import mistune
-from official.models import db, Stb, ImageVote, Post, PeopleShow, Weibo
+from official.models import db, Stb, ImageVote, Post, PeopleShow, Weibo, ListImage
 from config import YOUKU_CLIENT_ID
 
 user_view = Blueprint("user_view", __name__, template_folder="templates", static_folder="static")
@@ -49,7 +49,7 @@ def user_page(name):
     lImages = people.images.split(';')
     sticky = Post.query.filter_by(sticky=True).first()
     weibo = Weibo.query.filter_by(people_id=people.id).first()
-    return render_template('userpage.html', people=people, lImages=lImages, sticky_post=sticky, client_id=YOUKU_CLIENT_ID,
+    return render_template('user_page.html', people=people, lImages=lImages, sticky_post=sticky, client_id=YOUKU_CLIENT_ID,
                 weibo=weibo, title=people.title)
 
 @user_view.route('/vote/img', methods=['POST', 'GET'])
@@ -69,3 +69,14 @@ def post_of_id(id):
         print("in posts %s is null" % id)
         return "Not exist"
     return render_template('post_page.html', post=post, body=mistune.markdown(post.body), title=post.title, client_id=YOUKU_CLIENT_ID)
+
+@user_view.route('/image/<name>')
+def list_images(name):
+    people = PeopleShow.query.filter_by(name=name).first()
+    if people==None:
+        print('list_images %s not exist' % name)
+        return 'Not exist'
+    id = people.id
+    images = ListImage.query.filter_by(people_id=id).all()
+    return render_template('list_image.html', images=images, title=u'雅雅美图')
+

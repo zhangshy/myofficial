@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+    <style type="text/css">
+    .my_list_image {
+        height: 200px;
+        margin: 20px;
+    }
+    .my_list_image:hover {
+        width: auto;
+        height: auto;
+    }
+    </style>
+    <div class="container">
+    {% for image in images %}
+        <a href="{{ image.href }}" target="_blank"><img src="{{ image.src }}" class="my_list_image"></a>
+    {% endfor %}
+    </div>
+{% endblock %}

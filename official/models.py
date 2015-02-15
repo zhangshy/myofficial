@@ -89,6 +89,7 @@ class PeopleShow(db.Model):
     images = db.Column(db.String(512))
     image_vote = db.relationship('ImageVote', backref='people_show', lazy='dynamic')
     weibo = db.relationship('Weibo', backref='people_show', lazy='dynamic')
+    list_image = db.relationship('ListImage', backref='people_show', lazy='dynamic')
     def __repr__(self):
         return self.name
 
@@ -138,4 +139,12 @@ class Weibo(db.Model):
     href = db.Column(db.String(128))
     people_id = db.Column(db.Integer, db.ForeignKey('people_show.id'))
 
-
+'''
+图片墙
+'''
+class ListImage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    src = db.Column(db.String(80))
+    href = db.Column(db.String(128))
+    content = db.Column(db.String(300))
+    people_id = db.Column(db.Integer, db.ForeignKey('people_show.id'))
