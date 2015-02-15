@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-<body>
 
     <ul class="nav nav-pills">
         <li role="presentation" class="active"><a href="#">首页</a></li>
@@ -11,7 +10,7 @@
     <div class="row">
         <div class="col-xs-9 col-md-6">
             <!-- style="width: 440px; width: 70%; margin: 0 auto" 可以设置carousel的尺寸 -->
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height: 400px">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     {% for image in lImages %}
@@ -23,7 +22,7 @@
                 <div class="carousel-inner" role="listbox">
                 {% for image in lImages %}
                       <div class="item {% if loop.first %}active{% endif %}">
-                      <img src="{{ image }}"  alt="{{ people.name }}" style="margin: 0 auto; height: 400px;">
+                      <img src="{{ image }}"  alt="{{ people.name }}" style="margin: 0 auto;">
                     </div>
                 {% endfor %}
                 </div>
@@ -47,13 +46,6 @@
                     <p>{{ sticky_post.summary }}<a href="/post/{{ sticky_post.id }}#comment">评论(<span id="sourceId::postpage_{{ sticky_post.id }}" class="cy_cmt_count"></span>)</a></p>
                     {% if sticky_post.youku_vid %}
                         <div id="youkuplayer" style="width:480px;height:400px"></div>
-                        <script type="text/javascript" src="http://player.youku.com/jsapi">
-                        player = new YKU.Player('youkuplayer',{
-                        styleid: '0',
-                        client_id: '{{ client_id }}',
-                        vid: '{{ sticky_post.youku_vid }}'
-                        });
-                        </script>
                     {% endif %}
                 {% endif %}
             </div>
@@ -61,12 +53,12 @@
     </div> <!-- /.div row -->
 
     <div class="row" style="margin-top: 20px;">
-        <div class="col-xs-12 col-md-8">
+        <div class="col-xs-9 col-md-6">
             <p class="lead text-success">{{ people.live_alt }}</p>
             <p><a href={{ people.live_href }}  target="_black"><img src={{ people.live_avatar }} alt={{ people.live_alt }}></a></p>
-            <iframe height=475 width=800 src="{{ people.live_src }}" frameborder=0 allowfullscreen></iframe>
+            <iframe id="live_iframe" style="width: 100%;" src="{{ people.live_src }}" frameborder=0 allowfullscreen></iframe>
         </div>
-        <div class="col-xs-3 col-md-2">
+        <div class="col-xs-9 col-md-6" style="text-align: center">
             <div>
                 <p class="lead text-success">{{ people.weibo_desc }}</p>
                 <a href={{ people.weibo_href }}  target="_black"><img src={{ people.weibo_avatar }} alt={{ people.weibo_desc }} class="img-circle"></a>
@@ -85,11 +77,20 @@
 </div><!-- /.div container-fluid  -->
 
 
+
+    <script type="text/javascript" src="http://player.youku.com/jsapi">
+    player = new YKU.Player('youkuplayer',{
+    styleid: '0',
+    client_id: '{{ client_id }}',
+    vid: '{{ sticky_post.youku_vid }}'
+    });
+    </script>
     <script id="cy_cmt_num" src="http://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyrCnFEuY"></script>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <script>
+    $(document).ready(function(){
+      $("#live_iframe").load(function(){
+          $(this).css("height", $(this).width()*0.6);
+      });
+    });
+    </script>
 {% endblock %}

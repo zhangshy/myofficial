@@ -1,25 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap -->
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script src="/static/js/my_main.js" charset="utf-8"></script>
-
-</head>
-<body>
 
     <ul class="nav nav-pills">
         <li role="presentation" class="active"><a href="/">首页</a></li>
@@ -30,10 +10,12 @@
     <div class="row">
         <div class="col-xs-12 col-md-8">
             <h1 class="text-center">{{ post.title }}</h1>
-            {% if post.href %}
-                 <footer><a href="{{ post.href }}" target="_blank">原文链接</a></footer>
-            {% endif %}
-            <p class="text-info text-right"><small>{{ post.summary }}</small></p>
+            <div class="well">
+                {% if post.href %}
+                     <footer><a href="{{ post.href }}" target="_blank">原文链接</a></footer>
+                {% endif %}
+                <p class="text-info text-right"><small>{{ post.summary }}</small></p>
+            </div>
             <!-- 使用autoescape false后body所代表的html中的一些html标签才没有被转译 -->
             {% autoescape false %}
                 {{ body }}
@@ -56,10 +38,4 @@
 </div>
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-</body>
-</html>
 {% endblock %}
