@@ -11,7 +11,8 @@ user_view = Blueprint("user_view", __name__, template_folder="templates", static
 
 @user_view.route('/')
 def index():
-    return redirect(url_for('.user_page', name='yaya'))
+    return user_page('yaya')
+    #return redirect(url_for('.user_page', name='yaya'))
 
 @user_view.route('/stb')
 def stb():
