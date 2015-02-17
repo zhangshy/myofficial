@@ -1,5 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
+    <style type="text/css">
+    #weibo_img {
+        display: none;
+    }
+    /* 当鼠标放到id为weibo_title元素时，修改id为weibo_img的元素 */
+    #weibo_title:hover~#weibo_img {
+        display: block;
+        position: absolute; /* 使用绝对地址可使div层叠，达到悬浮的目的 */
+        right: -10%;
+        top: -10%;
+    }
+    </style>
 <div class="container">
     <div class="row">
         <div class="col-xs-9 col-md-6">
@@ -54,8 +66,9 @@
         </div>
         <div class="col-xs-9 col-md-6" style="text-align: center">
             <div>
-                <p class="lead text-success">{{ people.weibo_desc }}</p>
-                <a href={{ people.weibo_href }}  target="_black"><img src={{ people.weibo_avatar }} alt={{ people.weibo_desc }} class="img-circle"></a>
+                <a id="weibo_title" href={{ people.weibo_href }}  target="_black"><p class="lead text-success">{{ people.weibo_desc }}</p></a>
+                <img id="weibo_img" src={{ people.weibo_avatar }} alt={{ people.weibo_desc }} class="img-circle">
+                <wb:follow-button uid="1659023411" type="red_3" width="100%" height="24" ></wb:follow-button>
             </div>
             {% if weibo %}
                 <div class="thumbnail">
@@ -72,6 +85,7 @@
 
 
 
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="http://player.youku.com/jsapi">
     player = new YKU.Player('youkuplayer',{
     styleid: '0',
