@@ -42,8 +42,9 @@ def bootstrap_test1(name):
 
 @user_view.route('/page/<name>')
 def user_page(name):
-    print('user_page:' + name)
-    people = PeopleShow.query.filter_by(name=name).first()
+    #people = PeopleShow.query.filter_by(name=name).first()
+    peoples = PeopleShow.query.filter_by(name=name).all()
+    people = peoples[0]
     if people==None:
         print('people is none')
         return "not exist"
@@ -51,7 +52,7 @@ def user_page(name):
     sticky = Post.query.filter_by(sticky=True).first()
     weibo = Weibo.query.filter_by(people_id=people.id).first()
     return render_template('user_page.html', people=people, lImages=lImages, sticky_post=sticky, client_id=YOUKU_CLIENT_ID,
-                weibo=weibo, title=people.title)
+                weibo=weibo, title=people.title, peoples=peoples)
 
 @user_view.route('/vote/img', methods=['POST', 'GET'])
 def vote_image():
@@ -73,11 +74,13 @@ def post_of_id(id):
 
 @user_view.route('/image/<name>')
 def list_images(name):
-    people = PeopleShow.query.filter_by(name=name).first()
+    #people = PeopleShow.query.filter_by(name=name).first()
+    peoples = PeopleShow.query.filter_by(name=name).all()
+    people = peoples[0]
     if people==None:
         print('list_images %s not exist' % name)
         return 'Not exist'
     id = people.id
     images = ListImage.query.filter_by(people_id=id).all()
-    return render_template('list_image.html', images=images, title=u'雅雅美图')
+    return render_template('list_image.html', images=images, title=u'雅雅美图', people=people, peoples=peoples)
 

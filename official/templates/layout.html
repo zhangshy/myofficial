@@ -45,16 +45,9 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        body {
-            /* 当使用导航使用navbar-fixed-top时，不加padding-top的话会遮挡内容 */
-            padding-top: 70px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/layout.css">
 </head>
 <body>
-{% block body %}{% endblock %}
-</body>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -72,11 +65,23 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">图集 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/image/yaya">雅雅</a></li>
+                {% for each in peoples %}
+                    <li><a href="/image/{{ each.name }}">{{ each.nickname }}</a></li>
+                {% endfor %}
               </ul>
             </li>
           </ul>
+          {% if people %}
+              {% autoescape false %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active">{{ people.weibo_follow }}</li>
+                </ul>
+              {% endautoescape %}
+          {% endif %}
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+{% block body %}{% endblock %}
+</body>
 </html>

@@ -77,8 +77,10 @@ class Role(db.Model):
 class PeopleShow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(16))
+    nickname = db.Column(db.String(16))
     title = db.Column(db.String(64))
     desc = db.Column(db.String(256))
+    weibo_follow = db.Column(db.String(128))
     weibo_avatar = db.Column(db.String(128))
     weibo_href = db.Column(db.String(128))
     weibo_desc = db.Column(db.String(64))

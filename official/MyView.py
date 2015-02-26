@@ -10,7 +10,6 @@ from official import USER_ALL, ROLE_ALL
 class MyAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
-        print('this is /')
         if not login.current_user.is_authenticated():
             return redirect(url_for('.login_view'))
         return super(MyAdminIndexView, self).index()

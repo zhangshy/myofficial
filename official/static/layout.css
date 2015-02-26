@@ -1,0 +1,7 @@
+body {
+    /* 当使用导航使用navbar-fixed-top时，不加padding-top的话会遮挡内容 */
+    padding-top: 70px;
+}
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}
