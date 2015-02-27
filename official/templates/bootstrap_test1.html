@@ -22,7 +22,7 @@
     <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">可消失的弹出框</a>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    <button type="button" class="btn btn-primary btn-lg" id="button_modal">
       Launch demo modal
     </button>
     {% include 'child/myModal.html' %}
@@ -35,6 +35,18 @@
     $(function () {
       $('[data-toggle="popover"]').popover()
     })
+    </script>
+
+    <script>
+        /* http://stackoverflow.com/questions/23709700/embed-tag-inside-bootstrap-modal-not-visible-in-firefox */
+        $('#button_modal').click(function () {
+            /*$('#myModal').modal('show');*/
+            $("#myModal").css("display", "block");
+        });
+        $('#button_close').click(function () {
+            /*$('#myModal').modal('show');*/
+            $("#myModal").css("display", "none");
+        });
     </script>
 </body>
 </html>
