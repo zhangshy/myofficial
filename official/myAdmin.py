@@ -19,7 +19,6 @@ admin.add_view(RoleModelView(Weibo, db.session))
 admin.add_view(RoleModelView(ListImage, db.session))
 #admin.add_view(MyModelView(Stb, db.session))
 
-
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):
     identity.user = current_user

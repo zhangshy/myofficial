@@ -26,4 +26,5 @@ Principal(app)
 
 app.register_blueprint(user_view)
 
+
 import official.myAdmin

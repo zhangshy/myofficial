@@ -1,6 +1,5 @@
 #coding: utf-8
 from datetime import datetime
-import random
 
 from flask import render_template, url_for, redirect, request, Blueprint
 import mistune
@@ -23,13 +22,6 @@ def stb():
         stb.leftTime = tmp.days*86400 + tmp.seconds
         print("leftTime: %d" % (stb.leftTime))
     return render_template('stb.html', stbs=stbs)
-
-@user_view.route('/verificationcode')
-def verification_code():
-    str = ""
-    for i in range(5):
-        str += random.choice('0123456789abcdefghijklmnopqrstuvwxyz')
-    return str
 
 @user_view.route('/test')
 def test():

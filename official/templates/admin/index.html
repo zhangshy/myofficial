@@ -4,6 +4,15 @@
 <div class="row-fluid">
 
     <div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
         {% if current_user.is_authenticated() %}
         <h1>Flask-Admin example</h1>
         <p class="lead">
@@ -53,7 +62,7 @@
                 document.getElementById("verificationcode").innerHTML=xmlhttp.responseText;
             }
         }
-        xmlhttp.open("GET","/verificationcode",true);
+        xmlhttp.open("GET","/admin/verificationcode",true);
         xmlhttp.send()
         settime(val)
     }
