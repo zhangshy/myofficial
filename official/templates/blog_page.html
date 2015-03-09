@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            {% if lists %}
+                <h1>文章列表</h1>
+                {% for list in lists %}
+                    <a href="/blog/{{ list }}">{{ list }}</a>
+                {% endfor %}
+            {% else %}
+                <div id="includedContentPage"></div>
+            {% endif %}
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=5512232169&verifier=36f66de9&dpc=1"></iframe>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+  $("#includedContentPage").load("/blog/{{ file }}.html");
+});
+</script>
+
+{% endblock %}

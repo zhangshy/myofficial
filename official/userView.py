@@ -8,10 +8,12 @@ from config import YOUKU_CLIENT_ID
 
 user_view = Blueprint("user_view", __name__, template_folder="templates", static_folder="static")
 
+'''
 @user_view.route('/')
 def index():
     return user_page('yaya')
     #return redirect(url_for('.user_page', name='yaya'))
+'''
 
 @user_view.route('/stb')
 def stb():

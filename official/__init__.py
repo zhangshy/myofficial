@@ -6,6 +6,7 @@ from flask.ext.principal import Principal
 from config import SECRET_KEY, SQLALCHEMY_DATABASE_URI
 from models import db
 from userView import user_view
+from blogView import blog_view
 
 
 USER_ALL = 'user_all'
@@ -25,6 +26,7 @@ login_manager.init_app(app)
 Principal(app)
 
 app.register_blueprint(user_view)
+app.register_blueprint(blog_view)
 
 
 import official.myAdmin
