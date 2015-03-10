@@ -6,6 +6,7 @@ from flask.ext.admin import AdminIndexView, expose, form
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext import login
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.datastructures import FileStorage
 from sqlalchemy.event import listens_for
 from forms import LoginForm
 from flask.ext.principal import Identity, AnonymousIdentity, identity_changed, Permission, RoleNeed
@@ -96,3 +97,9 @@ class BlogView(ModelView):
             'base_path': file_path
         }
     }
+
+    def validate_form(self, form):
+        if isinstance(form.path.data, FileStorage):
+            if "text/markdown"!=form.path.data.mimetype:
+                return False
+        return super(BlogView, self).validate_form(form)
