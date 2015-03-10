@@ -2,8 +2,8 @@ from flask.ext.admin import Admin
 from flask.ext.login import current_user
 from flask.ext.principal import identity_loaded, RoleNeed, UserNeed, Permission
 from official import app, db, login_manager
-from MyView import MyAdminIndexView, MyModelView, UserModelView, RoleModelView
-from models import Stb, User, Role, PeopleShow, VoteEvent, ImageVote, Post, Weibo, ListImage
+from MyView import MyAdminIndexView, MyModelView, UserModelView, RoleModelView, BlogView
+from models import Stb, User, Role, PeopleShow, VoteEvent, ImageVote, Post, Weibo, ListImage, Blog
 
 
 #admin = Admin(app, index_view=MyAdminIndexView())
@@ -17,6 +17,7 @@ admin.add_view(RoleModelView(ImageVote, db.session))
 admin.add_view(RoleModelView(Post, db.session))
 admin.add_view(RoleModelView(Weibo, db.session))
 admin.add_view(RoleModelView(ListImage, db.session))
+admin.add_view(BlogView(Blog, db.session))
 #admin.add_view(MyModelView(Stb, db.session))
 
 @identity_loaded.connect_via(app)

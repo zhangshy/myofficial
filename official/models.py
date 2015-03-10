@@ -150,3 +150,12 @@ class ListImage(db.Model):
     href = db.Column(db.String(128))
     content = db.Column(db.String(300))
     people_id = db.Column(db.Integer, db.ForeignKey('people_show.id'))
+
+class Blog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    path = db.Column(db.String(128))
+    desc = db.Column(db.String(128))
+
+    def __unicode__(self):
+        return self.name
