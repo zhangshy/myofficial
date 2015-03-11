@@ -162,7 +162,7 @@ class BlogCategory(db.Model):
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
-    category = db.Column(db.Integer, db.ForeignKey('blog_category.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('blog_category.id'))
     path = db.Column(db.String(128))
     desc = db.Column(db.String(128))
 

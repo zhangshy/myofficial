@@ -129,7 +129,8 @@ class BlogView(ModelView):
 
     def validate_form(self, form):
         if isinstance(form.path.data, FileStorage):
-            if "text/markdown"!=form.path.data.mimetype:
+            if "text/markdown"!=form.path.data.mimetype and "text/x-markdown"!=form.path.data.mimetype:
+                print("validate_form %s=====" % form.path.data.mimetype)
                 return False
         return super(BlogView, self).validate_form(form)
 
