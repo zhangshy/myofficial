@@ -151,9 +151,18 @@ class ListImage(db.Model):
     content = db.Column(db.String(300))
     people_id = db.Column(db.Integer, db.ForeignKey('people_show.id'))
 
+class BlogCategory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32))
+    blog = db.relationship('Blog', backref='blog_category', lazy='dynamic')
+
+    def __repr__(self):
+        return self.name
+
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
+    category = db.Column(db.Integer, db.ForeignKey('blog_category.id'))
     path = db.Column(db.String(128))
     desc = db.Column(db.String(128))
 

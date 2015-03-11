@@ -8,14 +8,22 @@ from flask.ext import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.datastructures import FileStorage
 from sqlalchemy.event import listens_for
+import mistune #解析markdown文件
 from forms import LoginForm
 from flask.ext.principal import Identity, AnonymousIdentity, identity_changed, Permission, RoleNeed
 from official import USER_ALL, ROLE_ALL
 from models import Blog
 
-file_path = os.path.join(os.path.dirname(__file__), 'blog')
+#上传文件存放路径
+file_path = os.path.join(os.path.dirname(__file__), 'blog/md')
+html_path = os.path.join(os.path.dirname(__file__), 'blog/html')
 try:
     os.mkdir(file_path)
+except OSError:
+    pass
+
+try:
+    os.mkdir(html_path)
 except OSError:
     pass
 
@@ -83,11 +91,32 @@ def del_blog(mapper, connection, target):
             os.remove(os.path.join(file_path, target.path))
         except OSError:
             pass
+        try:
+            os.remove(os.path.join(html_path, os.path.splitext(target.path)[0]+'.html'))
+        except OSError:
+            pass
+
+'''
+修改form.FileUploadField的_save_file方法，在保存文件时将上传的md文件也转成html文件，并将html文件存入../html中
+'''
+class MyBlogUploadField(form.FileUploadField):
+    def _save_file(self, data, filename):
+        path = self._get_path(filename)#.../md/file.md
+        path = os.path.dirname(path)#../md/
+        path = os.path.join(os.path.dirname(path), 'html')#../html/
+        if not os.path.exists(path):
+            os.makedirs(path, self.permission | 0o111)
+        path = os.path.join(path, filename)
+        out = "<head><meta charset='utf-8'></head>"
+        out += mistune.markdown(data.read())
+        with open(os.path.splitext(path)[0]+'.html', 'w') as fo:
+            fo.write(out)
+        return super(MyBlogUploadField, self)._save_file(data, filename)
 
 class BlogView(ModelView):
     # Override form field to Flask-Admin FileUploadField
     form_overrides = {
-        'path': form.FileUploadField
+        'path': MyBlogUploadField
     }
 
     # Pass additional parameters to 'path' to FileUploadField constructor
@@ -103,3 +132,6 @@ class BlogView(ModelView):
             if "text/markdown"!=form.path.data.mimetype:
                 return False
         return super(BlogView, self).validate_form(form)
+
+    def is_accessible(self):
+        return Permission(RoleNeed(ROLE_ALL)).can()
