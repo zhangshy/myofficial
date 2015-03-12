@@ -13,13 +13,13 @@ def index():
 @blog_view.route('/blog')
 def list():
     peoples = PeopleShow.query.all()
-    lists = Blog.query.all()
+    lists = BlogCategory.query.all()
     return render_template('blog_page.html', title=u'blog列表', peoples=peoples, lists=lists)
 
 @blog_view.route('/blog/<name>')
 def blog(name):
     peoples = PeopleShow.query.all()
-    blog = Blog.query.filter_by(name=name).first()
+    blog = Blog.query.filter_by(path=(name+'.md')).first()
     title = u"文章不存在"
     if blog!=None:
         title = BlogCategory.query.filter_by(id=blog.category_id).first().name

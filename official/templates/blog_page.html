@@ -5,12 +5,16 @@
     <div class="row">
         <div class="col-xs-12 col-md-8">
             {% if lists %}
-                <h1>文章列表</h1>
+                <ul>
                 {% for list in lists %}
-                    <a href="/blog/{{ list.path[:-3] }}">{{ list.desc }}</a><br>
+                    <h2>{{ list.name }}</h2>
+                    {% for blog in list.blog.all() %}
+                    <h3><li><a href="/blog/{{ blog.path[:-3] }}">{{ blog.desc }}</a></li></h3>
+                    {% endfor %}
                 {% endfor %}
+                </ul>
             {% else %}
-                <a class="btn btn-default" href="/blog" role="button">文章列表</a>
+                <a class="btn btn-primary btn-lg" href="/blog" role="button">文章列表</a>
                 <div id="includedContentPage"></div>
                 <a name="comment"></a>
                 <div id="SOHUCS" sid="blog_{{ blog }}"></div>
