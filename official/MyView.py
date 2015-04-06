@@ -15,8 +15,8 @@ from official import USER_ALL, ROLE_ALL
 from models import Blog
 
 #上传文件存放路径
-file_path = os.path.join(os.path.dirname(__file__), 'blog/md')
-html_path = os.path.join(os.path.dirname(__file__), 'blog/html')
+file_path = os.path.join(os.path.dirname(__file__), 'templates/blog/md')
+html_path = os.path.join(os.path.dirname(__file__), 'templates/blog/html')
 try:
     os.mkdir(file_path)
 except OSError:

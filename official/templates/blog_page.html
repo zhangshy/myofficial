@@ -15,9 +15,15 @@
                 </ul>
             {% else %}
                 <a class="btn btn-primary btn-lg" href="/blog" role="button">文章列表</a>
-                <div id="includedContentPage"></div>
+                <div>
+                  {% if blog %}
+                      <h2 class="text-center">{{ blog.desc }}</h2>
+                      <p class="text-info text-right"><small>{{ blog.blog_category }}</small></p>
+                      {% include 'blog/html/'+name+'.html' ignore missing %}
+                  {% endif %}
+                </div>
                 <a name="comment"></a>
-                <div id="SOHUCS" sid="blog_{{ blog }}"></div>
+                <div id="SOHUCS" sid="blog_{{ name }}"></div>
                 <script>changyan()</script>
             {% endif %}
         </div>
@@ -28,10 +34,5 @@
         </div>
     </div>
 </div>
-<script>
-$(function(){
-  $("#includedContentPage").load("/blog/html/{{ blog }}.html");
-});
-</script>
 
 {% endblock %}
