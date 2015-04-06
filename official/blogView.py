@@ -22,5 +22,5 @@ def blog(name):
     blog = Blog.query.filter_by(path=(name+'.md')).first()
     title = u"文章不存在"
     if blog!=None:
-        title = BlogCategory.query.filter_by(id=blog.category_id).first().name
+        title = blog.desc
     return render_template('blog_page.html', title=title, peoples=peoples, blog=blog, name=name)
